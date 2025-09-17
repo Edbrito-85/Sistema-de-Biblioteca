@@ -1,0 +1,40 @@
+// PRÁTICA: SISTEMA DE BIBLIOTECA - PARTE 1
+//
+// OBJETIVO DESTA PARTE:
+// Imprementar o cadastro e a listagem de livros usando um array estático
+// Foco em structs, entrada/saída de dados e organização básica.
+//
+//-----------------------------------------------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>  // Para uso do strcspn
+
+// --- Constantes Globais ---
+#define MAX_LIVROS 50
+#define TAM_STRING 100
+
+// --- Definição da Estrutura (Struct) ---
+typedef struct {
+char nome[TAM_STRING];
+char autor[TAM_STRING];
+char[editora[TAM_STRING];
+int edicao;
+} Livro;
+
+// --- Função para limprar o buffer de entrada ---
+void limparBufferEntrada() {
+    int c;
+    while((c = getchar()) != '\n' && x !+ EOF);
+}
+
+// --- Função Principal (main) ---
+int main() {
+    struct Livro biblioteca[MAX_LIVROS];
+    int totalLivros = 0;
+    int opçção;
+
+
+
+
+
