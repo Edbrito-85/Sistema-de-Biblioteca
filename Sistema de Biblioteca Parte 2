@@ -1,1 +1,131 @@
+// PRÁTICA: SISTEMA DE BIBLIOTECA - PARTE 2
+//
+// OBJETIVO DESTA PARTE:
+// Adicionar a funcionalidade de empréstimo e introduzir alocação dinâmica.
+// Os arrays de livros e empréstimos são alocados com malloc/calloc.
+// Nova struct para Empréstimo.
+// Liberação de memória com a função: free
+// ===================================================================================
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h> // Para funções com string
+
+// --- Constantes Globais ---
+#define MAX_LIVROS 50
+#define MAX_EMPRESTIMOS 100 // Definimos uma capacidade para empréstimos.
+#define TAM_STRING 100
+
+// --- Definição da Estruturas (Struct) ---
+// struct Livro, agora tem um campo 'disponível' para controlar o status.
+
+typedef struct {
+    char nome[TAM_STRING];
+    char autor[TAM_STRING];
+    char editora[TAM_STRING];
+    int edicao;
+    int disponível; // 1 para sim, 0 para não.
+} Livro;
+
+// --- Função para limpar o buffer de entrada ---
+void limparBufferEntrada() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+// --- Função Principal (main) ---
+int main() {
+    Livro biblioteca[MAX_LIVROS]; // Array estático para armazenar os livros
+    int totalLivros = 0;           // Contador de livros cadastrados
+    int opcao;                     // Opção escolhida pelo usuário no menu
+
+    // --- Laço Principal do Menu ---
+    do {
+        // Exibe o menu de opções
+        printf("================================\n");
+        printf("    BIBLIOTECA - PARTE 1\n");
+        printf("================================\n");
+        printf("1 - Cadastrar novo livro\n");
+        printf("2 - Listar todos os livros\n");
+        printf("0 - Sair\n");
+        printf("--------------------------------\n");
+        printf("Escolha uma opcao: ");
+
+        // Lê a opção do usuário
+        scanf("%d", &opcao);
+        limparBufferEntrada(); // Limpa o '\n' deixado pelo scanf
+
+        // --- Processamento da Opção ---
+        switch (opcao) {
+            case 1: // CADASTRO DE LIVRO
+                printf("--- Cadastro de Novo Livro ---\n\n");
+
+                if (totalLivros < MAX_LIVROS) {
+                    // Entrada de dados do livro
+                    printf("Digite o nome do livro: ");
+                    fgets(biblioteca[totalLivros].nome, TAM_STRING, stdin);
+
+                    printf("Digite o autor: ");
+                    fgets(biblioteca[totalLivros].autor, TAM_STRING, stdin);
+
+                    printf("Digite a editora: ");
+                    fgets(biblioteca[totalLivros].editora, TAM_STRING, stdin);
+
+                    // Remove o '\n' do final das strings lidas pelo fgets
+                    biblioteca[totalLivros].nome[strcspn(biblioteca[totalLivros].nome, "\n")] = '\0';
+                    biblioteca[totalLivros].autor[strcspn(biblioteca[totalLivros].autor, "\n")] = '\0';
+                    biblioteca[totalLivros].editora[strcspn(biblioteca[totalLivros].editora, "\n")] = '\0';
+
+                    printf("Digite a edicao: ");
+                    scanf("%d", &biblioteca[totalLivros].edicao);
+                    limparBufferEntrada(); 
+
+                    totalLivros++; // Incrementa o contador de livros cadastrados
+
+                    printf("\nLivro cadastrado com sucesso!\n");
+                } else {
+                    printf("Biblioteca cheia! Nao e possivel cadastrar mais livros.\n");
+                }
+
+                printf("\nPressione Enter para continuar...");
+                getchar(); // Pausa para o usuário ler a mensagem antes de voltar ao menu
+                break;
+
+            case 2: // LISTAGEM DE LIVROS
+                printf("--- Lista de Livros Cadastrados ---\n\n");
+
+                if (totalLivros == 0) {
+                    printf("Nenhum livro cadastrado ainda.\n");
+                } else {
+                    int i; // Declara a variável de controle do for
+                    for (i = 0; i < totalLivros; i++) {
+                        printf("-----------------------------------\n");
+                        printf("LIVRO %d\n", i + 1);
+                        printf("Nome: %s\n", biblioteca[i].nome);
+                        printf("Autor: %s\n", biblioteca[i].autor);
+                        printf("Editora: %s\n", biblioteca[i].editora);
+                        printf("Edicao: %d\n", biblioteca[i].edicao);
+                    }
+                    printf("------------------------------------\n");
+                }
+
+                // Pausa para o usuário visualizar a lista
+                printf("\nPressione Enter para continuar...");
+                getchar();
+                break;
+
+            case 0: // SAIR
+                printf("\nSaindo do sistema...\n");
+                break;
+
+            default: // OPÇÃO INVÁLIDA
+                printf("\nOpcao invalida, Tente novamente.\n");
+                printf("\nPressione Enter para continuar...");
+                getchar();
+                break;
+        }
+
+    } while (opcao != 0); // Continua o menu até o usuário escolher sair
+
+    return 0;
+}
