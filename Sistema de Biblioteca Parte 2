@@ -171,7 +171,7 @@ int opcao;
                          emprestimos[totalEmprestimos].nomeUsuario[strcspn(emprestimos[totalEmprestimos].nomeUsuario, "\n")] = '\0';
                         
                          // Registra o empréstimo.
-                         emprestimo[totalEmprestimos].indiceLivro = indice;
+                         emprestimos[totalEmprestimos].indiceLivro = indice;
 
                          // Atualiza o status do livro para indisponível.
                          biblioteca[indice].disponivel = 0;
