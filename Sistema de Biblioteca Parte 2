@@ -161,7 +161,7 @@ int opcao;
                      printf("\nDigite o numero do livro que deseja emprestar: ");
                      int numLivro;
                      scanf("%d", &numLivro);
-                     limpaBufferEntrada();
+                     limparBufferEntrada();
                      int indice = numLivro -1; // Converte para o índice do array (0 a N-1).
 
                      // Validação da ecolha do usuário:
